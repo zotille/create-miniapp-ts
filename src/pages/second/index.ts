@@ -1,28 +1,22 @@
 const app = getApp()
 import store from '../../store/store'
-import {create} from '../../../omix/index'
+import { create } from '../../../omix/index'
+import Base from '../../base'
+import { IndexData } from '../index'
 
-interface IndexData {
-  motto: string
-  userInfo: {}
-  hasUserInfo: boolean
-  canIUse: boolean
-}
-interface IndexOption {
-  onTap: () => void
-}
-create<IndexData, IndexOption>(store, {
-  data: {
+class Second extends Base<IndexData> {
+  data = {
     motto: 'Hello World',
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo')
-  },
-  onTap: function () {
+  }
+  onTap() {
     store.data.data += 1;
     store.freshColor();
     wx.navigateBack()
-  },
-  onLoad: function () {
   }
-})
+  onLoad() {
+  }
+}
+create(store, new Second)
